@@ -1,0 +1,1012 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>SmartAttend</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <script src="app.js" defer></script>
+</head>
+
+<body>
+
+  <!-- =========================
+       LOGIN PAGE
+  ========================== -->
+
+  <main id="loginPage" class="auth-page">
+
+    <section class="auth-card">
+
+      <div class="auth-header">
+        <h1>SmartAttend</h1>
+        <p>Attendance Management System</p>
+      </div>
+
+      <form id="loginForm">
+
+        <div class="form-group">
+          <label for="loginEmail">Email</label>
+          <input
+            type="email"
+            id="loginEmail"
+            required
+            autocomplete="email"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="loginPassword">Password</label>
+          <input
+            type="password"
+            id="loginPassword"
+            required
+            autocomplete="current-password"
+          >
+        </div>
+
+        <button type="submit" class="primary-btn">
+          Login
+        </button>
+
+        <p id="message" class="form-message"></p>
+
+      </form>
+
+      <div class="auth-footer">
+        <button
+          type="button"
+          class="text-btn"
+          data-show-register
+        >
+          Register Instructor
+        </button>
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================
+       INSTRUCTOR REGISTRATION
+  ========================== -->
+
+  <main id="registerInstructorPage" class="auth-page hidden">
+
+    <section class="auth-card">
+
+      <div class="auth-header">
+        <h1>Register Instructor</h1>
+        <p>Create your instructor account</p>
+      </div>
+
+      <form id="registerInstructorForm">
+
+        <div class="form-group">
+          <label for="instructorNameInput">Name</label>
+          <input
+            type="text"
+            id="instructorNameInput"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="instructorEmailInput">Email</label>
+          <input
+            type="email"
+            id="instructorEmailInput"
+            required
+            autocomplete="email"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="instructorPasswordInput">Password</label>
+          <input
+            type="password"
+            id="instructorPasswordInput"
+            required
+            minlength="6"
+            autocomplete="new-password"
+          >
+        </div>
+
+        <button type="submit" class="primary-btn">
+          Register
+        </button>
+
+        <p id="registerMessage" class="form-message"></p>
+
+      </form>
+
+      <div class="auth-footer">
+        <button
+          type="button"
+          class="text-btn"
+          data-show-login
+        >
+          Back to Login
+        </button>
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================
+       MAIN APPLICATION
+  ========================== -->
+
+  <div id="app" class="app hidden">
+
+    <!-- HEADER -->
+
+    <header class="topbar">
+
+      <div class="brand">
+        <h1>SmartAttend</h1>
+      </div>
+
+      <div class="user-area">
+        <span id="instructorName"></span>
+
+        <button
+          type="button"
+          class="secondary-btn"
+          data-logout
+        >
+          Logout
+        </button>
+      </div>
+
+    </header>
+
+
+    <div class="app-layout">
+
+      <!-- =========================
+           SIDEBAR
+      ========================== -->
+
+      <aside class="sidebar">
+
+        <nav>
+
+          <button
+            type="button"
+            class="nav-btn active"
+            data-page="dashboardPage"
+          >
+            Dashboard
+          </button>
+
+          <button
+            type="button"
+            class="nav-btn"
+            data-page="subjectsPage"
+          >
+            Subjects
+          </button>
+
+          <button
+            type="button"
+            class="nav-btn"
+            data-page="registerStudentPage"
+          >
+            Register Student
+          </button>
+
+          <button
+            type="button"
+            class="nav-btn"
+            data-page="studentsPage"
+          >
+            Students
+          </button>
+
+          <button
+            type="button"
+            class="nav-btn"
+            data-page="attendancePage"
+          >
+            Attendance
+          </button>
+
+        </nav>
+
+      </aside>
+
+
+      <!-- =========================
+           CONTENT
+      ========================== -->
+
+      <main class="content">
+
+
+        <!-- =========================
+             DASHBOARD
+        ========================== -->
+
+        <section id="dashboardPage" class="page">
+
+          <div class="page-header">
+            <div>
+              <h2>Dashboard</h2>
+              <p>Monitor student attendance.</p>
+            </div>
+          </div>
+
+
+          <div class="dashboard-controls">
+
+            <div class="form-group">
+              <label for="dashboardSubject">
+                Subject
+              </label>
+
+              <select id="dashboardSubject">
+                <option value="">
+                  Select Subject
+                </option>
+              </select>
+            </div>
+
+
+            <div class="form-group">
+
+              <label for="dashboardDate">
+                Date
+              </label>
+
+              <input
+                type="date"
+                id="dashboardDate"
+              >
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label for="subjectSearch">
+                Search Subject
+              </label>
+
+              <input
+                type="text"
+                id="subjectSearch"
+                placeholder="Search subject"
+              >
+
+            </div>
+
+          </div>
+
+
+          <!-- SCHEDULE -->
+
+          <div class="schedule-card">
+
+            <div>
+              <span class="label">
+                Schedule
+              </span>
+
+              <strong id="dashboardSchedule">
+                Select a subject
+              </strong>
+            </div>
+
+          </div>
+
+
+          <!-- ATTENDANCE COUNTS -->
+
+          <div class="stats-grid">
+
+            <div class="stat-card">
+              <span>Present</span>
+              <strong id="presentCount">0</strong>
+            </div>
+
+            <div class="stat-card">
+              <span>Late</span>
+              <strong id="lateCount">0</strong>
+            </div>
+
+            <div class="stat-card">
+              <span>Absent</span>
+              <strong id="absentCount">0</strong>
+            </div>
+
+            <div class="stat-card">
+              <span>Waiting</span>
+              <strong id="waitingCount">0</strong>
+            </div>
+
+          </div>
+
+
+          <!-- DASHBOARD TABLE -->
+
+          <div class="table-card">
+
+            <div class="table-header">
+              <h3>Attendance</h3>
+            </div>
+
+            <div class="table-wrapper">
+
+              <table id="dashboardTable">
+
+                <thead>
+
+                  <tr>
+                    <th>Student ID</th>
+                    <th>Student Name</th>
+                    <th>Program</th>
+                    <th>Status</th>
+                    <th>Time In</th>
+                    <th>Action</th>
+                  </tr>
+
+                </thead>
+
+                <tbody id="dashboardTableBody"></tbody>
+
+              </table>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- =========================
+             SUBJECTS
+        ========================== -->
+
+        <section id="subjectsPage" class="page hidden">
+
+          <div class="page-header">
+
+            <div>
+              <h2>Subjects</h2>
+              <p>Manage your subjects and class schedules.</p>
+            </div>
+
+          </div>
+
+
+          <div class="form-card">
+
+            <h3>Add / Edit Subject</h3>
+
+            <form id="subjectForm">
+
+              <input
+                type="hidden"
+                id="subjectID"
+              >
+
+
+              <div class="form-grid">
+
+                <div class="form-group">
+
+                  <label for="subjectCode">
+                    Subject Code
+                  </label>
+
+                  <input
+                    type="text"
+                    id="subjectCode"
+                    required
+                  >
+
+                </div>
+
+
+                <div class="form-group">
+
+                  <label for="subjectName">
+                    Subject Name
+                  </label>
+
+                  <input
+                    type="text"
+                    id="subjectName"
+                    required
+                  >
+
+                </div>
+
+
+                <div class="form-group">
+
+                  <label for="section">
+                    Section
+                  </label>
+
+                  <input
+                    type="text"
+                    id="section"
+                    required
+                  >
+
+                </div>
+
+
+                <div class="form-group">
+
+                  <label for="program">
+                    Program
+                  </label>
+
+                  <input
+                    type="text"
+                    id="program"
+                    required
+                  >
+
+                </div>
+
+              </div>
+
+
+              <div class="form-group">
+
+                <label>
+                  Days
+                </label>
+
+                <div class="checkbox-grid">
+
+                  <label>
+                    <input
+                      type="checkbox"
+                      name="days"
+                      value="Monday"
+                    >
+                    Monday
+                  </label>
+
+                  <label>
+                    <input
+                      type="checkbox"
+                      name="days"
+                      value="Tuesday"
+                    >
+                    Tuesday
+                  </label>
+
+                  <label>
+                    <input
+                      type="checkbox"
+                      name="days"
+                      value="Wednesday"
+                    >
+                    Wednesday
+                  </label>
+
+                  <label>
+                    <input
+                      type="checkbox"
+                      name="days"
+                      value="Thursday"
+                    >
+                    Thursday
+                  </label>
+
+                  <label>
+                    <input
+                      type="checkbox"
+                      name="days"
+                      value="Friday"
+                    >
+                    Friday
+                  </label>
+
+                  <label>
+                    <input
+                      type="checkbox"
+                      name="days"
+                      value="Saturday"
+                    >
+                    Saturday
+                  </label>
+
+                  <label>
+                    <input
+                      type="checkbox"
+                      name="days"
+                      value="Sunday"
+                    >
+                    Sunday
+                  </label>
+
+                </div>
+
+              </div>
+
+
+              <div class="form-grid">
+
+                <div class="form-group">
+
+                  <label for="startTime">
+                    Start Time
+                  </label>
+
+                  <input
+                    type="time"
+                    id="startTime"
+                    required
+                  >
+
+                </div>
+
+
+                <div class="form-group">
+
+                  <label for="endTime">
+                    End Time
+                  </label>
+
+                  <input
+                    type="time"
+                    id="endTime"
+                    required
+                  >
+
+                </div>
+
+              </div>
+
+
+              <div class="form-actions">
+
+                <button
+                  type="submit"
+                  class="primary-btn"
+                >
+                  Save Subject
+                </button>
+
+                <button
+                  type="button"
+                  id="cancelSubjectEdit"
+                  class="secondary-btn"
+                >
+                  Clear
+                </button>
+
+              </div>
+
+
+              <p
+                id="subjectMessage"
+                class="form-message"
+              ></p>
+
+            </form>
+
+          </div>
+
+
+          <div class="table-card">
+
+            <div class="table-header">
+              <h3>Your Subjects</h3>
+            </div>
+
+            <div
+              id="subjectsList"
+              class="list-container"
+            ></div>
+
+          </div>
+
+        </section>
+
+
+        <!-- =========================
+             REGISTER STUDENT
+        ========================== -->
+
+        <section
+          id="registerStudentPage"
+          class="page hidden"
+        >
+
+          <div class="page-header">
+
+            <div>
+              <h2>Register Student</h2>
+              <p>Register a student and capture their face.</p>
+            </div>
+
+          </div>
+
+
+          <div class="student-registration-layout">
+
+
+            <!-- CAMERA -->
+
+            <div class="camera-card">
+
+              <h3>Student Camera</h3>
+
+              <div class="camera-container">
+
+                <video
+                  id="studentCamera"
+                  autoplay
+                  muted
+                  playsinline
+                ></video>
+
+                <canvas
+                  id="studentCanvas"
+                  class="hidden"
+                ></canvas>
+
+              </div>
+
+              <img
+                id="studentPhotoPreview"
+                class="photo-preview hidden"
+                alt="Student photo preview"
+              >
+
+            </div>
+
+
+            <!-- FORM -->
+
+            <div class="form-card">
+
+              <h3>Student Information</h3>
+
+              <form id="studentForm">
+
+                <div class="form-group">
+
+                  <label for="studentID">
+                    Student ID
+                  </label>
+
+                  <input
+                    type="text"
+                    id="studentID"
+                    required
+                  >
+
+                </div>
+
+
+                <div class="form-group">
+
+                  <label for="studentName">
+                    Student Name
+                  </label>
+
+                  <input
+                    type="text"
+                    id="studentName"
+                    required
+                  >
+
+                </div>
+
+
+                <div class="form-group">
+
+                  <label for="studentProgram">
+                    Program
+                  </label>
+
+                  <input
+                    type="text"
+                    id="studentProgram"
+                    required
+                  >
+
+                </div>
+
+
+                <div class="form-group">
+
+                  <label for="studentSubject">
+                    Subject
+                  </label>
+
+                  <select
+                    id="studentSubject"
+                    required
+                  >
+
+                    <option value="">
+                      Select Subject
+                    </option>
+
+                  </select>
+
+                </div>
+
+
+                <input
+                  type="hidden"
+                  id="studentPhotoData"
+                >
+
+
+                <button
+                  type="submit"
+                  class="primary-btn"
+                >
+                  Register Student
+                </button>
+
+
+                <p
+                  id="studentMessage"
+                  class="form-message"
+                ></p>
+
+              </form>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- =========================
+             STUDENTS
+        ========================== -->
+
+        <section
+          id="studentsPage"
+          class="page hidden"
+        >
+
+          <div class="page-header">
+
+            <div>
+              <h2>Students</h2>
+              <p>View students enrolled in a subject.</p>
+            </div>
+
+          </div>
+
+
+          <div class="form-card">
+
+            <div class="form-group">
+
+              <label for="studentsSubject">
+                Subject
+              </label>
+
+              <select id="studentsSubject">
+
+                <option value="">
+                  Select Subject
+                </option>
+
+              </select>
+
+            </div>
+
+          </div>
+
+
+          <div class="table-card">
+
+            <div class="table-header">
+              <h3>Enrolled Students</h3>
+            </div>
+
+            <div
+              id="studentsList"
+              class="list-container"
+            ></div>
+
+          </div>
+
+        </section>
+
+
+        <!-- =========================
+             ATTENDANCE
+        ========================== -->
+
+        <section
+          id="attendancePage"
+          class="page hidden"
+        >
+
+          <div class="page-header">
+
+            <div>
+              <h2>Attendance</h2>
+              <p>Scan a registered student's face.</p>
+            </div>
+
+          </div>
+
+
+          <div class="form-card">
+
+            <div class="form-group">
+
+              <label for="attendanceSubject">
+                Subject
+              </label>
+
+              <select id="attendanceSubject">
+
+                <option value="">
+                  Select Subject
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div
+              id="attendanceSchedule"
+              class="attendance-schedule"
+            >
+              Select a subject to view the schedule.
+            </div>
+
+          </div>
+
+
+          <!-- ATTENDANCE CAMERA -->
+
+          <div class="attendance-camera-card">
+
+            <div class="camera-container">
+
+              <video
+                id="attendanceVideo"
+                autoplay
+                muted
+                playsinline
+              ></video>
+
+            </div>
+
+
+            <div class="camera-actions">
+
+              <button
+                type="button"
+                id="startAttendanceCamera"
+                class="primary-btn"
+              >
+                Start Camera
+              </button>
+
+              <button
+                type="button"
+                id="stopAttendanceCamera"
+                class="secondary-btn"
+              >
+                Stop Camera
+              </button>
+
+            </div>
+
+
+            <p
+              id="attendanceMessage"
+              class="form-message"
+            ></p>
+
+          </div>
+
+        </section>
+
+      </main>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       ATTENDANCE POPUP
+  ========================== -->
+
+  <div
+    id="attendancePopup"
+    class="popup-overlay hidden"
+    aria-hidden="true"
+  >
+
+    <div
+      id="attendancePopupBox"
+      class="popup-box"
+      role="dialog"
+      aria-modal="true"
+    >
+
+      <div class="popup-content">
+
+        <h2 id="attendancePopupTitle">
+          Attendance Saved
+        </h2>
+
+        <p id="attendancePopupMessage"></p>
+
+        <button
+          type="button"
+          id="attendancePopupClose"
+          class="primary-btn"
+        >
+          OK
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       GENERAL MESSAGE POPUP
+  ========================== -->
+
+  <div
+    id="messagePopup"
+    class="popup-overlay hidden"
+    aria-hidden="true"
+  >
+
+    <div
+      class="popup-box"
+      role="dialog"
+      aria-modal="true"
+    >
+
+      <div class="popup-content">
+
+        <h2 id="messagePopupTitle">
+          Message
+        </h2>
+
+        <p id="messagePopupMessage"></p>
+
+        <button
+          type="button"
+          id="messagePopupClose"
+          class="primary-btn"
+        >
+          OK
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+</html>

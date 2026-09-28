@@ -1,0 +1,792 @@
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --background: #f4f6f9;
+  --surface: #ffffff;
+  --border: #dfe3e8;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --success: #15803d;
+  --warning: #b45309;
+  --danger: #dc2626;
+  --sidebar: #111827;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--background);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* =========================
+   GENERAL
+========================= */
+
+.hidden {
+  display: none !important;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+input,
+select {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 11px 12px;
+  background: #fff;
+  color: var(--text);
+  outline: none;
+}
+
+input:focus,
+select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+label {
+  display: block;
+  margin-bottom: 7px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-message {
+  min-height: 20px;
+  margin-top: 12px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.form-message.success {
+  color: var(--success);
+}
+
+.form-message.warning {
+  color: var(--warning);
+}
+
+.form-message.error {
+  color: var(--danger);
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.primary-btn,
+.secondary-btn,
+.text-btn,
+.nav-btn {
+  border: none;
+}
+
+.primary-btn {
+  width: 100%;
+  padding: 11px 16px;
+  border-radius: 7px;
+  background: var(--primary);
+  color: white;
+  font-weight: 600;
+  transition: background 0.2s ease;
+}
+
+.primary-btn:hover {
+  background: var(--primary-dark);
+}
+
+.primary-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.secondary-btn {
+  padding: 10px 15px;
+  border-radius: 7px;
+  background: #eef1f5;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.secondary-btn:hover {
+  background: #e2e6eb;
+}
+
+.text-btn {
+  background: transparent;
+  color: var(--primary);
+  font-weight: 600;
+  padding: 5px;
+}
+
+.text-btn:hover {
+  text-decoration: underline;
+}
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 5px;
+}
+
+.form-actions .primary-btn,
+.form-actions .secondary-btn {
+  width: auto;
+}
+
+
+/* =========================
+   AUTH
+========================= */
+
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 430px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 32px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.auth-header h1 {
+  font-size: 30px;
+  margin-bottom: 8px;
+}
+
+.auth-header p {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.auth-footer {
+  text-align: center;
+  margin-top: 20px;
+}
+
+
+/* =========================
+   APPLICATION
+========================= */
+
+.app {
+  min-height: 100vh;
+}
+
+.topbar {
+  height: 64px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.brand h1 {
+  font-size: 22px;
+  color: var(--primary);
+}
+
+.user-area {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.user-area span {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.user-area .secondary-btn {
+  padding: 8px 12px;
+}
+
+
+/* =========================
+   LAYOUT
+========================= */
+
+.app-layout {
+  display: flex;
+  min-height: calc(100vh - 64px);
+}
+
+.sidebar {
+  width: 230px;
+  background: var(--sidebar);
+  padding: 20px 12px;
+  flex-shrink: 0;
+}
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.nav-btn {
+  width: 100%;
+  text-align: left;
+  padding: 12px 14px;
+  border-radius: 7px;
+  background: transparent;
+  color: #d1d5db;
+  font-weight: 600;
+}
+
+.nav-btn:hover {
+  background: #1f2937;
+  color: white;
+}
+
+.nav-btn.active {
+  background: #1f2937;
+  color: white;
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+  padding: 28px;
+}
+
+.page {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.page-header {
+  margin-bottom: 24px;
+}
+
+.page-header h2 {
+  font-size: 27px;
+  margin-bottom: 5px;
+}
+
+.page-header p {
+  color: var(--muted);
+}
+
+
+/* =========================
+   DASHBOARD
+========================= */
+
+.dashboard-controls {
+  display: grid;
+  grid-template-columns: 1fr 180px 1fr;
+  gap: 15px;
+  margin-bottom: 18px;
+}
+
+.schedule-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px;
+  margin-bottom: 20px;
+}
+
+.schedule-card .label {
+  display: block;
+  color: var(--muted);
+  font-size: 13px;
+  margin-bottom: 5px;
+}
+
+.schedule-card strong {
+  font-size: 16px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.stat-card span {
+  display: block;
+  color: var(--muted);
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.stat-card strong {
+  font-size: 30px;
+}
+
+
+/* =========================
+   CARDS
+========================= */
+
+.form-card,
+.table-card,
+.camera-card,
+.attendance-camera-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 22px;
+  margin-bottom: 20px;
+}
+
+.form-card h3,
+.camera-card h3 {
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+.table-header {
+  margin-bottom: 15px;
+}
+
+.table-header h3 {
+  font-size: 18px;
+}
+
+
+/* =========================
+   TABLE
+========================= */
+
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 700px;
+}
+
+th,
+td {
+  padding: 13px 12px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  font-size: 14px;
+}
+
+th {
+  background: #f8fafc;
+  font-weight: 700;
+}
+
+tbody tr:hover {
+  background: #f8fafc;
+}
+
+
+/* =========================
+   STATUS
+========================= */
+
+.status-badge {
+  display: inline-block;
+  padding: 5px 9px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.status-present {
+  background: #dcfce7;
+  color: var(--success);
+}
+
+.status-late {
+  background: #fef3c7;
+  color: var(--warning);
+}
+
+.status-absent {
+  background: #fee2e2;
+  color: var(--danger);
+}
+
+.status-waiting {
+  background: #e5e7eb;
+  color: #4b5563;
+}
+
+
+/* =========================
+   FORMS
+========================= */
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.checkbox-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.checkbox-grid label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  padding: 9px 12px;
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.checkbox-grid input {
+  width: auto;
+}
+
+
+/* =========================
+   SUBJECT / STUDENT LISTS
+========================= */
+
+.list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.list-item {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 15px;
+  background: #fff;
+}
+
+.list-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.list-item-title {
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.list-item-details {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.list-item-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.list-item-actions button {
+  width: auto;
+}
+
+
+/* =========================
+   STUDENT REGISTRATION
+========================= */
+
+.student-registration-layout {
+  display: grid;
+  grid-template-columns: minmax(350px, 1fr) minmax(350px, 1fr);
+  gap: 20px;
+}
+
+.camera-container {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: #111827;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+.camera-container video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photo-preview {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-top: 15px;
+  border: 1px solid var(--border);
+}
+
+
+/* =========================
+   ATTENDANCE
+========================= */
+
+.attendance-schedule {
+  padding: 13px 15px;
+  border-radius: 7px;
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.attendance-camera-card {
+  max-width: 850px;
+}
+
+.attendance-camera-card .camera-container {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.camera-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.camera-actions .primary-btn,
+.camera-actions .secondary-btn {
+  width: auto;
+}
+
+
+/* =========================
+   POPUPS
+========================= */
+
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 1000;
+}
+
+.popup-box {
+  width: 100%;
+  max-width: 430px;
+  background: white;
+  border-radius: 12px;
+  padding: 28px;
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  border-top: 5px solid var(--primary);
+}
+
+.popup-box.popup-success {
+  border-top-color: var(--success);
+}
+
+.popup-box.popup-warning {
+  border-top-color: var(--warning);
+}
+
+.popup-box.popup-error {
+  border-top-color: var(--danger);
+}
+
+.popup-content h2 {
+  margin-bottom: 12px;
+  font-size: 23px;
+}
+
+.popup-content p {
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 22px;
+}
+
+.popup-content .primary-btn {
+  max-width: 130px;
+  margin: 0 auto;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1000px) {
+
+  .dashboard-controls {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .dashboard-controls .form-group:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .student-registration-layout {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+
+@media (max-width: 700px) {
+
+  .topbar {
+    padding: 0 15px;
+  }
+
+  .brand h1 {
+    font-size: 19px;
+  }
+
+  .user-area {
+    gap: 8px;
+  }
+
+  .user-area span {
+    display: none;
+  }
+
+  .app-layout {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    padding: 8px;
+  }
+
+  .sidebar nav {
+    flex-direction: row;
+    overflow-x: auto;
+  }
+
+  .nav-btn {
+    white-space: nowrap;
+    width: auto;
+  }
+
+  .content {
+    padding: 18px;
+  }
+
+  .dashboard-controls {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-controls .form-group:last-child {
+    grid-column: auto;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-card {
+    padding: 24px;
+  }
+
+  .camera-actions {
+    flex-direction: column;
+  }
+
+  .camera-actions .primary-btn,
+  .camera-actions .secondary-btn {
+    width: 100%;
+  }
+
+}
+
+
+@media (max-width: 450px) {
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .page-header h2 {
+    font-size: 23px;
+  }
+
+  .form-card,
+  .table-card,
+  .camera-card,
+  .attendance-camera-card {
+    padding: 16px;
+  }
+
+  .checkbox-grid {
+    flex-direction: column;
+  }
+
+  .checkbox-grid label {
+    width: 100%;
+  }
+
+}
